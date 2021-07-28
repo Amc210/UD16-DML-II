@@ -1,0 +1,94 @@
+1.
+select APELLIDOS from empleados
+
+2.
+select APELLIDOS 
+from empleados
+group by APELLIDOS
+
+3.
+select * 
+from empleados
+where APELLIDOS = "López"
+
+4.
+select * 
+from empleados
+where APELLIDOS = "López" OR Apellidos = "Pérez"
+
+5.
+select * 
+from empleados
+where departamento = 14
+
+6.
+select * 
+from empleados
+where departamento = 37 or departamento = 77
+
+7.
+select * 
+from empleados
+where apellidos like "P%"
+
+8.
+select SUM(presupuesto) 
+from departamentos
+
+9.
+select count(DNI) 
+from empleados
+group by departamento
+
+10.
+select e.*, d.* 
+from empleados e join departamentos d on(e.departamento=d.codigo)
+
+11.
+select e.NOMBRE, e.APELLIDOS, d.NOMBRE as "Nombre departamento", d. PRESUPUESTO 
+from empleados e join departamentos d on(e.departamento=d.codigo)
+
+12.
+select e.nombre, e.apellidos
+from empleados e
+where (select d.presupuesto 
+		from departamentos d
+        where e.departamento=d.codigo) 
+        >= 60000		
+
+13.
+select * 
+from departamentos
+where presupuesto > (select AVG(presupuesto)
+			from departamentos)
+
+14.
+SELECT d.nombre 
+FROM departamentos d
+left join empleados e on (d.codigo=e.departamento)
+where e.departamento >= 2
+
+15.
+insert into departamentos(CODIGO, nombre, presupuesto) values(11, "Calidad", 40000)
+insert into empleados(dni, nombre, apellidos, departamento) values(89267109, "Esther", "Vázquez", 11)
+
+16.
+UPDATE departamentos
+SET presupuesto = presupuesto - (presupuesto * 0.10)
+
+17.
+UPDATE empleados
+SET departamento = 14
+where departamento = 77
+
+18.
+delete from empleados where DEPARTAMENTO = 14
+
+19.
+delete e
+from empleados  e
+join departamentos d on (e.departamento=d.codigo)
+where d.presupuesto >= 60000
+
+20.
+delete from empleados
