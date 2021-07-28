@@ -1,0 +1,65 @@
+3.1
+select * from almacenes
+3.2
+select * from cajas
+where valor > 150
+3.3
+select contenido
+from cajas
+3.4
+select avg(valor)
+from cajas
+3.5
+select avg(valor)
+from cajas
+group by almacen
+3.6
+select almacen
+from cajas
+group by almacen
+having avg(valor)>150
+3.7
+select cajas.numreferencia, almacenes.lugar
+from cajas
+inner join almacenes on codigo=ALMACEN
+3.8
+select almacenes.codigo , count(cajas.numreferencia)
+from cajas c
+inner join almacenes s on a.almacen=c.codigo
+group by almacenes.codigo
+3.9
+select codigo
+from almacenes
+where capacidad <(
+select count(*)
+from cajas
+where almacen=codigo)
+No funca
+3.10
+select a.lugar, c.numreferencia
+from cajas c join almacenes a on c.almacen=a.codigo
+where a.lugar = 'bilbao'
+3.11
+insert into almacenes(codigo,lugar, capacidad) values
+(6, 'Barcelona', 3)
+3.12
+insert into cajas(numreferencia,contenido, valor, almacen) values
+('H5RT', 'Papel', 200, 2)
+3.13
+update cajas set valor=valor-(valor*0.15)
+3.14
+update cajas set valor=valor-(valor*0.20)
+where valor>(select avg(valor) from cajas) 
+No funca
+3.15
+delete from cajas
+where valor<100
+3.16
+delete from cajas where almacen in
+(select codigo
+from almacenes
+where capacidad>(
+select count(*)
+from cajas
+where almacen = codigo )
+)
