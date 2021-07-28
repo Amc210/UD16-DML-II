@@ -1,0 +1,103 @@
+1.1
+select nombre
+from articulos
+1.2
+select nombre, precio
+from articulos
+1.3
+select nombre, precio
+from articulos
+where precio <= 200
+1.4
+select nombre, precio
+from articulos
+where precio <= 120 and precio >= 60
+1.5
+select nombre, precio*166.386 as "Precio en pesetas"
+from articulos
+1.6
+select avg(precio) as "Precio medio"
+from articulos
+1.7
+select avg(precio) as "Precio medio codigo 2"
+from articulos
+where codigo = 2
+1.8
+select count(nombre) as "Numero articulos"
+from articulos
+where precio >= 180
+1.9
+select nombre, precio
+from articulos
+where precio >= 180 
+order by precio desc, nombre asc
+1.10
+select A.nombre, F.nombre
+from articulos A join fabricantes F on (A.fabricante)
+1.11
+select A.nombre, A.precio, F.nombre
+from articulos A join fabricantes F on (A.fabricante)
+1.12
+select F.codigo, avg(A.precio) AS "precio medio"
+from articulos A join fabricantes F on (A.fabricante)
+group by A.fabricante, F.codigo
+1.13
+select F.nombre, avg(A.precio) AS "precio medio"
+from articulos A join fabricantes F on (A.fabricante)
+group by A.fabricante, F.codigo
+1.14
+select F.nombre
+from articulos A join fabricantes F on (A.fabricante)
+group by F.nombre
+having avg(A.PRECIO) >= 150
+1.15
+select nombre, min(precio)
+from articulos
+group by nombre
+1.16
+select F.nombre, A.PRECIO
+from articulos A join fabricantes F on (A.fabricante)
+where A.precio = (select max(precio) from articulos)
+group by F.codigo, A.PRECIO
+1.17
+insert into articulos (codigo, nombre, precio, fabricante) values
+(11, 'Altavoces', 70, 2)
+1.18
+update articulos set nombre='Impresora Laser' where codigo=8
+1.19
+update articulos set precio=precio-(precio*0.1)
+1.20
+update articulos set precio=(precio-10) where precio >= 120
+4.1
+select nombre
+from peliculas
+4.2
+select CALIFICACIONEDAD
+from peliculas
+4.3
+select nombre, CALIFICACIONEDAD
+from peliculas
+where CALIFICACIONEDAD is null
+4.4
+select codigo,nombre, pelicula
+from salas
+where pelicula is null
+4.5
+select s.codigo,s.nombre, s.pelicula, p.NOMBRE, p.CALIFICACIONEDAD
+from salas s join peliculas p on (p.codigo = s.pelicula)
+4.6
+select p.codigo,p.nombre, p.CALIFICACIONEDAD, s.pelicula, s.NOMBRE
+from salas s join peliculas p on (p.codigo = s.pelicula)
+order by p.codigo
+4.7
+select p.nombre
+from salas s right join peliculas p on (p.codigo = s.pelicula)
+where s.pelicula is null;
+4.8
+insert into peliculas (CODIGO, nombre, CALIFICACIONEDAD) values (10, 'Uno, Dos, Tres', 'Mayores 7')
+4.9
+update peliculas set CALIFICACIONEDAD = 'No recomendables para -13' where CALIFICACIONEDAD is null
+4.10
+delete from salas where pelicula in (select codigo
+				     from peliculas
+				     where CALIFICACIONEDAD = 'G')
